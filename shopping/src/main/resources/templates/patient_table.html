@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>会员主页</title>
+
+    <!--icheck-->
+    <link th:href="@{/asserts/js/iCheck/skins/minimal/minimal.css}" rel="stylesheet">
+    <link th:href="@{/asserts/js/iCheck/skins/square/square.css}" rel="stylesheet">
+    <link th:href="@{/asserts/js/iCheck/skins/square/red.css}" rel="stylesheet">
+    <link th:href="@{/asserts/js/iCheck/skins/square/blue.css}" rel="stylesheet">
+
+    <!--dashboard calendar-->
+    <link th:href="@{/asserts/css/clndr.css}" rel="stylesheet">
+
+    <!--Morris Chart CSS -->
+    <link rel="stylesheet" th:href="@{/asserts/js/morris-chart/morris.css}">
+
+    <!--common-->
+    <link th:href="@{/asserts/css/style.css}" rel="stylesheet">
+    <link th:href="@{/asserts/css/style-responsive.css}" rel="stylesheet">
+
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/asserts/js/html5shiv.js}"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        function isValid(form){
+
+            if(form.name.value==""){
+                alert("姓名字段不能为空！");
+                return false;
+            }
+            if(form.sex.value==""){
+                alert("性别字段不能为空！");
+                return false;
+            }
+            if(form.department.value==""){
+                alert("部门字段不能为空！");
+                return false;
+            }
+            if(form.username.value==""){
+                alert("工号字段不能为空！");
+                return false;
+            }
+
+            return true;
+        }
+        function isValid2(form){
+
+            if(form.name.value==""){
+                alert("姓名字段不能为空！");
+                return false;
+            }
+            if(form.sex.value==""){
+                alert("性别字段不能为空！");
+                return false;
+            }
+            if(form.tel.value==""){
+                alert("电话字段不能为空！");
+                return false;
+            }
+            if(form.birthday.value==""){
+                alert("生日字段不能为空！");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+    <script type="text/javascript">
+        function isValid1(form){
+
+            if(form.oldpsw.value==""){
+                alert("旧密码不能为空！");
+                return false;
+            }
+            if(form.oldpsw.value!=form.upsw.value){
+                alert("旧密码输入错误！")
+                return false;
+            }
+            if(form.newpsw.value==""){
+                alert("新密码不能为空！");
+                return false;
+            }
+            if(form.newpsw1.value==""){
+                alert("确认密码不能为空！");
+                return false;
+            }
+            if(form.newpsw.value!=form.newpsw1.value){
+                alert("两次输入密码不一致");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+    <script type="text/javascript">
+        function checkpsw(){
+            var c=document.getElementById('newpsw').value;
+            if(c.length==10){
+                alert("最大只可以输入十个字符");
+            }
+        }
+        function checkshort1(a){
+
+            if(a.value.length<4){
+                document.getElementById("hhh2").innerHTML ="密码不能小于4个字符!";
+            }
+            else
+            {
+                document.getElementById("hhh2").innerHTML ="";
+            }
+
+            return false;
+        }
+    </script>
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo and iconic logo start-->
+        <div class="logo">
+            <a th:href="@{/doctor/index}"><img th:src="@{/asserts/images/logo.png}" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a th:href="@{/doctor/index}"><img th:src="@{/asserts/images/logo_icon.png}" alt=""></a>
+        </div>
+        <!--logo and iconic logo end-->
+
+        <div class="left-side-inner">
+
+            <!-- visible to small devices only -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media logged-user">
+                    <img alt="" th:src="@{/asserts/images/photos/user-avatar.png}" class="media-object">
+                    <div class="media-body">
+                        <h4><a href="#">John Doe</a></h4>
+                        <span>"Hello There..."</span>
+                    </div>
+                </div>
+
+                <h5 class="left-nav-title">Account Information</h5>
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                    <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                    <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+                    <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+                </ul>
+            </div>
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li><a th:href="@{/doctor/index}"><i class="fa fa-home"></i> <span>经销商主页</span></a></li>
+                <li><a th:href="@{/doctor/case}"><i class="fa fa-th-list"></i> <span>提交订单信息管理</span></a>
+                </li>
+                <li class="active"><a th:href="@{/doctor/patient}"><i class="fa fa-users"></i> <span>会员信息管理</span></a>
+                </li>
+                <li><a href="javascript:admin_logout()"><i class="fa fa-sign-in"></i> <span>退出登录</span></a></li>
+            </ul>
+            <!--sidebar nav end-->
+
+        </div>
+    </div>
+    <!-- left side end-->
+
+    <!-- main content start-->
+    <div class="main-content" >
+        <!-- header section start-->
+        <div class="header-section">
+            <!--toggle button start-->
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+            <!--toggle button end-->
+            <form class="searchform" action="index.html" method="post">
+                <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
+            </form>
+            <!--search end-->
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            [[${session.doctor.name}]]
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                            <li><a href="#" data-toggle="modal" data-target="#modalEditMsg"><i class="fa fa-cog"></i> 修改个人信息</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#myModal1"><i class="fa fa-cog"></i> 修改密码</a></li>
+                            <li><a href="javascript:admin_logout()"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+        </div>
+        <!-- header section end-->
+
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                会员信息管理
+            </h3>
+            <ul class="breadcrumb">
+                <li class="active"> 管理全部会员信息 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            会员信息列表
+                            <span class="tools pull-right">
+                        <a href="javascript:;" class="fa fa-chevron-down"></a>
+                        <a href="javascript:;" class="fa fa-times"></a>
+                     </span>
+                        </header>
+                        <div class="panel-body">
+                            <div class="adv-table editable-table ">
+                                <div class="clearfix">
+                                    <div class="btn-group">
+                                        <button id="editable-sample_new" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                            新增会员信息 <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    &emsp;
+                                    <div class="btn-group">
+                                        <button class="btn btn-danger" type="button" onclick="delPatients()">批量删除</button>
+                                    </div>
+                                    <div class="btn-group pull-right">
+                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">小工具 <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="#"  onclick="Print()"><i class="fa fa-print"></i> 打印</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#myModa4">导入Excel</a></li>
+                                        </ul>
+                                        <!--导入modal-->
+                                        <div class="modal fade" id="myModa4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabe4">导入excel</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="upload" method="post" th:action="@{/admin/upload}" enctype="multipart/form-data">
+                                                            <input type="file"  id="excel" name="excel" accept=".xlsx,.xls">
+<!--                                                        <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;">-->
+<!--                                                            <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="BatchAdditionTeacher();" style="width:80px">上传</a>-->
+<!--                                                        </div>-->
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                <button type="submit" class="btn btn-primary">导入</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--导入modaldend -->
+                                    </div>
+                                </div>
+                                <div class="space15"></div>
+                                <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 70px"><input type="checkbox" id="allboxs" onclick="allcheck123()" style="zoom:140%;"/></th>
+                                        <th >编号</th>
+                                        <th >姓名</th>
+                                        <th >生日</th>
+                                        <th >性别</th>
+                                        <th >电话</th>
+                                        <th>编辑</th>
+                                        <th>删除</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="" th:each="c: ${patients}">
+                                        <td>
+                                            <input type="checkbox" name="boxs" style="zoom:140%;">
+                                        </td>
+                                        <td>[[${c.id}]]</td>
+                                        <td>[[${c.name}]]</td>
+                                        <td>[[${c.birthday}]]</td>
+                                        <td>[[${c.sex}]]</td>
+                                        <td>[[${c.phone}]]</td>
+                                        <td><button class="btn btn-success btn-sm" type="button" th:onclick="|findPatient('${c.id}')|"  data-toggle="modal" data-target="#myModal2">修 改</button></td>
+                                        <!--modal3  修改会员模态框-->
+                                        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabe3">修改会员信息</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/patient/edit}" method="post" onSubmit="return isValid2(this);">
+                                                            <input class="form-control"  type="hidden" name="id" id="editId">
+                                                            <div class="form-group">
+                                                                <label style="color: #5f5f5f" >会员姓名</label><input class="form-control"   type="text" name="name" id="editName" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5]/g,'')">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label style="color: #5f5f5f" >会员生日</label><input class="form-control"   type="date" name="birthday" id="editBirthday">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label style="color: #5f5f5f" >会员性别</label>
+                                                                <select class="form-control" name="sex" id="editSex">
+                                                                    <option>男</option>
+                                                                    <option>女</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label style="color: #5f5f5f" >会员电话</label><input class="form-control" type="text" onkeyup="value=value.replace(/[^\d]/g,'')" minlength="11" maxlength="11" name="tel" id="editTel" >
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                                <button type="submit" class="btn btn-primary">确认修改</button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--modal3end  -->
+                                        <td><a th:href="@{/patient/del(id=${c.id})}"><button class="btn btn-danger btn-sm" type="button" onClick="return confirm('确定删除经销商信息?');">删 除</button></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!--body wrapper end-->
+        <!--modal1  添加会员模态框-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">添加信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/patient/add}" method="post" onSubmit="return isValid2(this);">
+                            <div class="form-group">
+                                <label style="color: #5f5f5f" >会员姓名</label><input class="form-control"   type="text" name="name" id="addName" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5]/g,'')">
+                            </div>
+                            <div class="form-group">
+                                <label style="color: #5f5f5f" >会员生日</label><input class="form-control"   type="date" name="birthday" id="addBirthday">
+                            </div>
+                            <div class="form-group">
+                                <label style="color: #5f5f5f" >会员性别</label>
+                                <select class="form-control" name="sex" id="addSex">
+                                    <option>男</option>
+                                    <option>女</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label style="color: #5f5f5f" >会员电话</label><input class="form-control" type="tel" name="tel" id="addTel" >
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">确认添加</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--modal1end  -->
+        <!--        modalUpdateMsg start-->
+        <div class="modal fade" id="modalEditMsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalEditMsgLabel">修改个人信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/doctor/editMsg}" method="post" onSubmit="return isValid(this);">
+
+                            <div class="form-group">
+                                <input type="hidden" name="id" th:value="${session.doctor.id}" />
+                                <label style="color: #5f5f5f" >工号</label><input class="form-control"  type="text" name="username"
+                                                                                id="username" th:value="${session.doctor.username}"
+                                                                                readonly = "readonly">
+                            </div>
+                            <div class="form-group">
+                                <label style="color: #5f5f5f" >姓名</label><input class="form-control" type="text" name="name"
+                                                                                id="name" th:value="${session.doctor.name}">
+                            </div>
+                            <div class="form-group">
+                                <label style="color: #5f5f5f" >部门</label><input class="form-control" type="text" name="department"
+                                                                                id="department" th:value="${session.doctor.department}"
+                                                                                readonly = "readonly">
+                            </div>
+                            <div class="form-group">
+                                <label style="color: #5f5f5f" >性别</label><input class="form-control" type="text" name="sex"
+                                                                                id="sex" th:value="${session.doctor.sex}">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">确认修改</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--        modalUpdateMsg end-->
+        <!--modal2  -->
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModal1Label">修改密码</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/doctorLogin/updatePwd}" method="post" onSubmit="return isValid1(this);">
+
+                            <div class="form-group">
+                                <input type="hidden" name="id" th:value="${session.user.id}" />
+                                <input type="hidden" name="upsw" th:value="${session.user.password}" />
+                                <label style="color: #5f5f5f" >旧密码</label><input class="form-control"  type="password" name="oldpsw"   >
+
+                            </div>
+                            <div id="hhh2"></div>
+                            <div class="form-group" >
+                                <label style="color: #5f5f5f" >新密码</label><input class="form-control"  type="password" id="newpsw" name="newpsw" placeholder="请使用4-10位数字+字母组合" onkeypress="checkpsw()" onblur="checkshort1(this)"  onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </div>
+                            <div id="hhh"></div>
+                            <div class="form-group">
+                                <label style="color: #5f5f5f" >确认新密码</label><input class="form-control"   type="password" name="newpsw1">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">确认修改</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--moda21end  -->
+        <!--footer section start-->
+        <footer>
+            <p>Powered by © 2020</p>
+            <span id="dt"></span>
+        </footer>
+        <!--footer section end-->
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<script type="text/javascript">
+    function Print(){
+        window.print();
+    }
+</script>
+<script th:src="@{/asserts/js/my.js}"></script>
+<!-- Placed js at the end of the document so the pages load faster -->
+<script th:src="@{/asserts/js/jquery-1.10.2.min.js}"></script>
+<script th:src="@{/asserts/js/jquery-ui-1.9.2.custom.min.js}"></script>
+<script th:src="@{/asserts/js/jquery-migrate-1.2.1.min.js}"></script>
+<script th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<script th:src="@{/asserts/js/modernizr.min.js}"></script>
+<script th:src="@{/asserts/js/jquery.nicescroll.js}"></script>
+
+<!--pickers plugins-->
+<script type="text/javascript" th:src="@{/asserts/js/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+<script type="text/javascript" th:src="@{/asserts/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js}"></script>
+<script type="text/javascript" th:src="@{/asserts/js/bootstrap-daterangepicker/moment.min.js}"></script>
+<script type="text/javascript" th:src="@{/asserts/js/bootstrap-daterangepicker/daterangepicker.js}"></script>
+<script type="text/javascript" th:src="@{/asserts/js/bootstrap-colorpicker/js/bootstrap-colorpicker.js}"></script>
+<script type="text/javascript" th:src="@{/asserts/js/bootstrap-timepicker/js/bootstrap-timepicker.js}"></script>
+
+<!--pickers initialization-->
+<script th:src="@{/asserts/js/pickers-init.js}"></script>
+<!--data table-->
+<script type="text/javascript" th:src="@{/asserts/js/data-tables/jquery.dataTables.js}"></script>
+<script type="text/javascript" th:src="@{/asserts/js/data-tables/DT_bootstrap.js}"></script>
+
+<!--common scripts for all pages-->
+<script th:src="@{/asserts/js/scripts.js}"></script>
+
+<!--script for editable table-->
+<script th:src="@{/asserts/js/editable-table.js}"></script>
+<!--icheck -->
+<script th:src="@{/asserts/js/iCheck/jquery.icheck.js}"></script>
+<script th:src="@{/asserts/js/icheck-init.js}"></script>
+
+
+<script th:src="@{/asserts/js/easyloader.js}"></script>
+<script th:src="@{/asserts/js/jquery.easyui.min.js}"></script>
+<script th:src="@{/asserts/js/jquery.easyui.mobile.js}"></script>
+<!-- END JAVASCRIPTS -->
+<script>
+    jQuery(document).ready(function() {
+        EditableTable.init();
+    });
+</script>
+<!--底部时间-->
+<script th:src="@{/asserts/js/foot.js}"></script>
+</body>
+</html>

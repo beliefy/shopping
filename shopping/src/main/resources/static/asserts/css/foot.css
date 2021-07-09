@@ -1,0 +1,10 @@
+.star_footer{
+    position: absolute;
+    width: 1180px;
+    bottom: -10px;
+    text-align: center;
+    line-height: 40px;
+    left: 50%;
+    margin-left: -590px;
+    color: rgba(0,0,0,.8);
+}

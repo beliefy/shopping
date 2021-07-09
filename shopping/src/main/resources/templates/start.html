@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>Login</title>
+
+    <link th:href="@{/asserts/css/style.css}" rel="stylesheet">
+    <link th:href="@{/asserts/css/style-responsive.css}" rel="stylesheet">
+    <link th:href="@{/asserts/css/foot.css}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<p>OCP系统</p>
+<body class="signup-body">
+
+<div class="container">
+
+    <form class="form-signup" action="index.html">
+        <div class="login-wrap">
+            <a th:href="@{/adminLogin}"><button class="btn btn-block btn-primary" type="button" > <span class="pull-left">
+                <i class="fa fa-user"></i></span> <span class="bold">运营商登录</span></button></a>
+            <br>
+            <br>/adminLogin
+            <br>
+            <br>
+            <a th:href="@{/doctorLogin}"><button class="btn btn-block btn-info" type="button"> <span class="pull-left">
+                <i class="fa fa-pencil"></i></span> <span class="bold">经销商登录</span></button></a>
+
+        </div>
+    </form>
+    <div class="star_footer">
+        <p>Powered by © 2020 工程实践2</p>
+        <span id="dt"></span>
+    </div>
+</div>
+
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script th:src="@{/asserts/js/jquery-1.10.2.min.js}"></script>
+<script th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<script th:src="@{/asserts/js/modernizr.min.js}"></script>
+<script th:src="@{/asserts/js/foot.js}"></script>
+</body>
+</html>

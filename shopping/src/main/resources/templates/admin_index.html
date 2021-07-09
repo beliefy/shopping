@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+
+  <title>管理员主页</title>
+
+  <!--icheck-->
+  <link th:href="@{/asserts/js/iCheck/skins/minimal/minimal.css}" rel="stylesheet">
+  <link th:href="@{/asserts/js/iCheck/skins/square/square.css}" rel="stylesheet">
+  <link th:href="@{/asserts/js/iCheck/skins/square/red.css}" rel="stylesheet">
+  <link th:href="@{/asserts/js/iCheck/skins/square/blue.css}" rel="stylesheet">
+
+  <!--dashboard calendar-->
+  <link th:href="@{/asserts/css/clndr.css}" rel="stylesheet">
+
+  <!--Morris Chart CSS -->
+  <link rel="stylesheet" th:href="@{/asserts/js/morris-chart/morris.css}">
+
+  <!--common-->
+  <link th:href="@{/asserts/css/style.css}" rel="stylesheet">
+  <link th:href="@{/asserts/css/style-responsive.css}" rel="stylesheet">
+
+
+
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script th:src="@{/asserts/js/html5shiv.js}"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+    <script type="text/javascript">
+        function isValid1(form){
+
+            if(form.oldpsw.value==""){
+                alert("旧密码不能为空！");
+                return false;
+            }
+            if(form.oldpsw.value!=form.upsw.value){
+                alert("旧密码输入错误！")
+                return false;
+            }
+            if(form.newpsw.value==""){
+                alert("新密码不能为空！");
+                return false;
+            }
+            if(form.newpsw1.value==""){
+                alert("确认密码不能为空！");
+                return false;
+            }
+            if(form.newpsw.value!=form.newpsw1.value){
+                alert("两次输入密码不一致");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+    <script type="text/javascript">
+        function checkpsw(){
+            var c=document.getElementById('newpsw').value;
+            if(c.length==10){
+                alert("最大只可以输入十个字符");
+            }
+        }
+        function checkshort1(a){
+
+            if(a.value.length<4){
+                document.getElementById("hhh2").innerHTML ="密码不能小于4个字符!";
+            }
+            else
+            {
+                document.getElementById("hhh2").innerHTML ="";
+            }
+
+            return false;
+        }
+    </script>
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo and iconic logo start-->
+        <div class="logo">
+            <a th:href="@{/admin/index}"><img th:src="@{/asserts/images/logo.png}" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a th:href="@{/admin/index}"><img th:src="@{/asserts/images/logo_icon.png}" alt=""></a>
+        </div>
+        <!--logo and iconic logo end-->
+
+        <div class="left-side-inner">
+
+            <!-- visible to small devices only -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media logged-user">
+                    <img alt="" th:src="@{/asserts/images/photos/user-avatar.png}" class="media-object">
+                    <div class="media-body">
+                        <h4><a href="#">John Doe</a></h4>
+                        <span>"Hello There..."</span>
+                    </div>
+                </div>
+
+                <h5 class="left-nav-title">Account Information</h5>
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                  <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                  <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+                  <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+                </ul>
+            </div>
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="active"><a th:href="@{/admin/index}"><i class="fa fa-home"></i> <span>管理员主页</span></a></li>
+                <li><a th:href="@{/admin/doctor}"><i class="fa fa-users"></i> <span>经销商账号管理</span></a>
+                </li>
+                <li ><a th:href="@{/admin/medicine}"><i class="fa fa-th-list"></i> <span>订单信息管理</span></a>
+                </li>
+                <li><a href="javascript:admin_logout()"><i class="fa fa-sign-in"></i> <span>退出登录</span></a></li>
+                <!--<li ><a th:href="#"><i class="fa fa-th-list"></i> <span>产品管理</span></a>-->
+                <!--</li>-->
+                <!--<li ><a th:href="#"><i class="fa fa-th-list"></i> <span>售后管理</span></a>-->
+                <!--</li>-->
+                <!--<li ><a th:href="#"><i class="fa fa-th-list"></i> <span>库存管理</span></a>-->
+                <!--</li>-->
+                <!--<li ><a th:href="#"><i class="fa fa-th-list"></i> <span>系统设置</span></a>-->
+                <!--</li>-->
+            </ul>
+            <!--sidebar nav end-->
+
+        </div>
+    </div>
+    <!-- left side end-->
+    
+    <!-- main content start-->
+    <div class="main-content" >
+        <!-- header section start-->
+        <div class="header-section">
+            <!--toggle button start-->
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+            <!--toggle button end-->
+            <form class="searchform" th:action="index.html" method="post">
+                <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
+            </form>
+
+            <!--search end-->
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            [[${session.admin.username}]]
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                            <li><a href="#" data-toggle="modal" data-target="#myModal1"><i class="fa fa-cog"></i> 修改密码</a></li>
+                            <li><a href="javascript:admin_logout()"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+        </div>
+        <!-- header section end-->
+
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+               欢迎使用万家乐OCP，亲爱的管理员！
+            </h3>
+            <ul class="breadcrumb">
+                <li class="active"> 管理员主页 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        <div class="wrapper bg1" >
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-body extra-pad">
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="v-title">今日访问人数</div>
+                                <div class="v-value">190</div>
+                                <div id="visit-1"></div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="v-title">本周访问次数</div>
+                                <div class="v-value">8,173</div>
+                                <div id="visit-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="calendar-block ">
+                                <div class="cal1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="panel blue-box twt-info">
+                        <div class="panel-body">
+                            <h3>平台简介</h3>
+                            <p>在生产力过剩的时代，符合用户个性化需要的产品才能占领市场。通过获取到尽量多的数据，分析用户的需求，按照需求进行生产和销售，可以大幅提升传统行业的效率。
+                                同时，大数据技术只有在实体经济中进行应用，才能发挥大数据的作用
+                                。万家乐为了整合多个系统的数据，提出数据中台的设想，收集所有数据，进行数据分析后制定生产计划和销售计划，指导研发产品的方向。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--body wrapper end-->
+        <!--modal2  -->
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModal1Label">修改密码</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/admin/updatepwd}" method="post" onSubmit="return isValid1(this);">
+
+                            <div class="form-group">
+                                <input type="hidden" name="id" th:value="${session.admin.id}" />
+                                <input type="hidden" name="upsw" th:value="${session.admin.password}" />
+                                <label style="color: #5f5f5f" >旧密码</label><input class="form-control"  type="password" name="oldpsw"   >
+                                <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+                            </div>
+                            <div id="hhh2"></div>
+                            <div class="form-group" >
+                                <label style="color: #5f5f5f" >新密码</label><input class="form-control"  type="password" id="newpsw" name="newpsw" placeholder="请使用4-10位数字+字母组合" onkeypress="checkpsw()" onblur="checkshort1(this)"  onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </div>
+                            <div id="hhh"></div>
+                            <div class="form-group">
+                                <label style="color: #5f5f5f" >确认新密码</label><input class="form-control"   type="password" name="newpsw1">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">确认修改</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--moda21end  -->
+        <!--footer section start-->
+        <footer>
+            <p>Powered by © 2020</p>
+            <span id="dt"></span>
+        </footer>
+        <!--footer section end-->
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<script th:src="@{/asserts/js/my.js}"></script>
+<!-- Placed js at the end of the document so the pages load faster -->
+<script th:src="@{/asserts/js/jquery-1.10.2.min.js}"></script>
+<script th:src="@{/asserts/js/jquery-ui-1.9.2.custom.min.js}"></script>
+<script th:src="@{/asserts/js/jquery-migrate-1.2.1.min.js}"></script>
+<script th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<script th:src="@{/asserts/js/modernizr.min.js}"></script>
+<script th:src="@{/asserts/js/jquery.nicescroll.js}"></script>
+
+<!--easy pie chart-->
+<script th:src="@{/asserts/js/easypiechart/jquery.easypiechart.js}"></script>
+<script th:src="@{/asserts/js/easypiechart/easypiechart-init.js}"></script>
+
+<!--Sparkline Chart-->
+<script th:src="@{/asserts/js/sparkline/jquery.sparkline.js}"></script>
+<script th:src="@{/asserts/js/sparkline/sparkline-init.js}"></script>
+
+<!--icheck -->
+<script th:src="@{/asserts/js/iCheck/jquery.icheck.js}"></script>
+<script th:src="@{/asserts/js/icheck-init.js}"></script>
+
+<!-- jQuery Flot Chart-->
+<script th:src="@{/asserts/js/flot-chart/jquery.flot.js}"></script>
+<script th:src="@{/asserts/js/flot-chart/jquery.flot.tooltip.js}"></script>
+<script th:src="@{/asserts/js/flot-chart/jquery.flot.resize.js}"></script>
+
+
+<!--Morris Chart-->
+<script th:src="@{/asserts/js/morris-chart/morris.js}"></script>
+<script th:src="@{/asserts/js/morris-chart/raphael-min.js}"></script>
+
+<!--Calendar-->
+<script th:src="@{/asserts/js/calendar/clndr.js}"></script>
+<script th:src="@{/asserts/js/calendar/evnt.calendar.init.js}"></script>
+<script th:src="@{/asserts/js/calendar/moment-2.2.1.js}"></script>
+<script th:src="@{http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js}"></script>
+
+<!--common scripts for all pages-->
+<script th:src="@{/asserts/js/scripts.js}"></script>
+
+<!--Dashboard Charts-->
+<script th:src="@{/asserts/js/dashboard-chart-init.js}"></script>
+<!--底部时间-->
+<script th:src="@{/asserts/js/foot.js}"></script>
+
+
+</body>
+</html>
